@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_columnWeight="1"
+    android:layout_gravity="fill"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="2dp"
+    android:columnCount="2"
+    android:rowCount="2">
+    <!--    android:background="@color/gold"-->
+
+    <RadioButton
+        android:id="@+id/radioButton"
+        android:layout_width="195dp"
+        android:layout_height="wrap_content"
+        android:layout_row="0"
+        android:layout_column="0"
+        android:text="RadioButton" />
+
+    <CheckBox
+        android:id="@+id/checkBox2"
+        android:layout_width="213dp"
+        android:layout_height="wrap_content"
+        android:layout_row="0"
+        android:layout_column="1"
+        android:onClick="OnCheckChanged"
+        android:text="CheckBox" />
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="193dp"
+        android:layout_height="53dp"
+        android:layout_row="1"
+        android:layout_column="0"
+        android:onClick="setOnCheckedChanged"
+        android:text="What does this do?" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
+        android:layout_row="1"
+        android:layout_column="1"
+
+        android:onClick="onImageButtonCLick"
+        app:srcCompat="@android:drawable/ic_menu_camera"
+        tools:ignore="SpeakableTextPresentCheck" />
+</GridLayout>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/PasText"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/LoginView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Login" />
+
+    <EditText
+        android:id="@+id/LoginText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp"
+        android:text="@string/LoginName"
+        android:textColor="#32151515" />
+
+    <TextView
+        android:id="@+id/PasView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Password" />
+
+    <EditText
+        android:id="@+id/PasInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:minHeight="48dp" />
+
+    <Button
+        android:id="@+id/LoginButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onSaveClicked"
+        android:text="@string/Login" />
+
+</LinearLayout>
+

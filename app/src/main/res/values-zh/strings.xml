@@ -3,4 +3,13 @@
     <string name="app_name">AndroidAssignments</string>
     <string name="hello_message">你好 世界！</string>
     <string name="ButtonText">我是一个按钮</string>
+    <string name="Login">登陆</string>
+    <string name="LoginName">登陆名</string>
+    <string name="Password">密码</string>
+    <string name="Save">保存</string>
+    <string name="dialog_message">是否退出？</string>
+    <string name="dialog_title">警告</string>
+    <string name="ok">确认</string>
+    <string name="cancel">取消</string>
+    <string name="Response">回到主页</string>
 </resources>
