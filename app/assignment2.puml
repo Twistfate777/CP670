@@ -1,0 +1,26 @@
+@startuml
+skinparam backgroundColor #EEEBDC
+
+class LoginActivity {
+    +onLoginSuccess()
+}
+
+class MainActivity {
+    +onListItemClick()
+    +onChatButtonClick()
+}
+
+class ListItemsActivity {
+    +showItemDetails()
+}
+
+class ChatWindow {
+    +sendMessage()
+}
+
+
+
+LoginActivity --> MainActivity: onLoginSuccess()
+MainActivity --> ListItemsActivity: onListItemClick()
+MainActivity --> ChatWindow: onChatButtonClick()
+@enduml

@@ -31,6 +31,12 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent,REQUEST_CODE);
     }
 
+    public void onChatClicked(View v) {
+        Log.i(TAG,"User clicked Start Chat");
+        Intent intent = new Intent(MainActivity.this, ChatWindow.class);
+        startActivityForResult(intent,REQUEST_CODE);
+    }
+
     //Receive the message from previous page
     protected void onActivityResult(int RequestCode, int ResultCode, Intent data) {
         Log.i(TAG,"onActivityResult");
@@ -46,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
             Log.i(TAG,"OnReturnMain");
         }
     }
+
+
 
     protected void onResume() {
         super.onResume();

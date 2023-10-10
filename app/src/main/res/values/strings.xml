@@ -11,4 +11,5 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="Response">You are back to Main Page!</string>
+    <string name="chat">Start Chat</string>
 </resources>
