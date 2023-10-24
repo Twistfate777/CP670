@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.assignment2.TestToolbar;
+
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
@@ -21,6 +23,11 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG,"onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
+
+    public void onToolClicked(View v) {
+        Intent intent = new Intent(MainActivity.this, TestToolbar.class);
+        startActivityForResult(intent,REQUEST_CODE);
     }
 
     //Click the button and jump to List_Items

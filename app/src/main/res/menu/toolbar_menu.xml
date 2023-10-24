@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_one"
+        android:icon="@drawable/one"
+        app:showAsAction="always"
+        android:title="One" />
+    <item
+        android:id="@+id/action_two"
+        android:icon="@drawable/two"
+        app:showAsAction="always"
+        android:title="Two" />
+    <item
+        android:id="@+id/action_three"
+        android:icon="@drawable/three"
+        app:showAsAction="always"
+        android:title="Three" />
+    <item
+        android:id="@+id/action_about"
+        app:showAsAction="never"
+        android:title="About" />
+</menu>
