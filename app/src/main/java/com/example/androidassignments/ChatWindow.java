@@ -1,7 +1,12 @@
 package com.example.androidassignments;
 
+import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,32 +19,62 @@ import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.ChatDatabaseHelper;
+
 import java.util.ArrayList;
 
 public class ChatWindow extends AppCompatActivity {
+
+    protected static final String ACTIVITY_NAME = "ChatWindow";
+
+    SQLiteDatabase database;
+    ChatDatabaseHelper tempDatabase;
+    private String[] allItems = { ChatDatabaseHelper.COLUMN_ID,
+            ChatDatabaseHelper.COLUMN_ITEM };
 
     private ListView listView;
     private EditText editText;
     private Button btnSend;
     private ArrayList<String> chatMessages;
 
+    @SuppressLint("Range")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_window);
 
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        chatMessages = new ArrayList<>();
 
+        tempDatabase = new ChatDatabaseHelper(this);
+        database = tempDatabase.getWritableDatabase();
+
+        Cursor cursor = database.query(ChatDatabaseHelper.TABLE_ITEMS,
+                allItems,
+                ChatDatabaseHelper.COLUMN_ITEM + " not null",
+                null,
+                null,
+                null,
+                null
+        );
+        cursor.moveToFirst();
+
+        // Read database and add to messages
+        while(!cursor.isAfterLast())
+        {
+            Log.i(ACTIVITY_NAME, "New message found in Database. Details below --");
+            Log.i(ACTIVITY_NAME, "SQL COLUMN NAME: " + cursor.getColumnName(1));
+            String temp = cursor.getString(cursor.getColumnIndex(ChatDatabaseHelper.COLUMN_ITEM));
+            Log.i(ACTIVITY_NAME, "SQL column " + cursor.getColumnName(1) + ": " + temp);
+            chatMessages.add(temp);
+            Log.i(ACTIVITY_NAME, "Cursor’s  column count =" + cursor.getColumnCount());
+            cursor.moveToNext();
+        }
+        cursor.close();
 
 
         listView = findViewById(R.id.listView);
         editText = findViewById(R.id.edit_Text);
         btnSend = findViewById(R.id.btnSend);
-
-        chatMessages = new ArrayList<>();
 
         ChatAdapter messageAdapter = new ChatAdapter(this);
         listView.setAdapter(messageAdapter);
@@ -47,15 +82,19 @@ public class ChatWindow extends AppCompatActivity {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String message = editText.getText().toString().trim();
+                // Code here executes on main thread after user presses button
+                String temp = editText.getText().toString();
+                chatMessages.add(temp);
+                editText.getText().clear();
+                //Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                //startActivity(intent);
+                messageAdapter.notifyDataSetChanged(); //this restarts the process of getCount()/getView()
 
-                if(!message.isEmpty()) {
-                    chatMessages.add(message);
+                // Add to database
+                ContentValues cValues = new ContentValues();
+                cValues.put(ChatDatabaseHelper.COLUMN_ITEM, temp);
 
-                    messageAdapter.notifyDataSetChanged();
-
-                    editText.setText("");
-                }
+                database.insert(ChatDatabaseHelper.TABLE_ITEMS, "NullPlaceholder", cValues);
             }
         });
     }
@@ -76,47 +115,40 @@ public class ChatWindow extends AppCompatActivity {
 //        return  super.onOptionsItemSelected(item);
 //    }
 
-    private class ChatAdapter extends ArrayAdapter<String> {
-
-        private LayoutInflater inflater;
-
-        public ChatAdapter(Context ctx) {
+    private class ChatAdapter extends ArrayAdapter<String>
+    {
+        public ChatAdapter(Context ctx)
+        {
             super(ctx, 0);
-            inflater = ChatWindow.this.getLayoutInflater();
         }
 
-        @Override
-        public int getCount() {
-            return chatMessages.size();
+        public int getCount()
+        {
+            return chatMessages.size(); // Return the number of items in array of messages
         }
 
-        @Override
-        public String getItem(int position) {
+        public String getItem(int position)
+        {
             return chatMessages.get(position);
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            // Get the data item for this position
-            inflater = ChatWindow.this.getLayoutInflater();
-
-            String message = getItem(position);
+        public View getView(int position, View convertView, ViewGroup parent)
+        {
+            LayoutInflater inflater = ChatWindow.this.getLayoutInflater();
             View result;
 
-            if (position % 2 == 0) {
-                // If the position is even, inflate the incoming message layout
+            //Log.i(ACTIVITY_NAME, Integer.toString(position));
+            if(position%2 == 0)
                 result = inflater.inflate(R.layout.chat_row_incoming, null);
-            } else {
-                // If the position is odd, inflate the outgoing message layout
+            else
                 result = inflater.inflate(R.layout.chat_row_outgoing, null);
-            }
 
-            // Get the TextView which holds the string message
-            TextView messageTextView = (TextView) result.findViewById(R.id.message_text);
-            messageTextView.setText(message); // Set the text for the TextView
-
+            TextView message = result.findViewById(R.id.message_text);
+            message.setText(   /*"Hello"*/ getItem(position) ); // get the string at position
             return result;
         }
+
     }
 
 }

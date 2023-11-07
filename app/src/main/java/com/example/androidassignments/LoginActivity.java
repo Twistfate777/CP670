@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         String preference_file_name = "Email";
         SharedPreferences mPrefs = getSharedPreferences(preference_file_name,MODE_PRIVATE);
         SharedPreferences.Editor mEditor = mPrefs.edit();
-        String newEmail = (String) ((EditText)findViewById(R.id.LoginText)).getText().toString();
+        String newEmail = ((EditText)findViewById(R.id.LoginText)).getText().toString();
         mEditor.putString("Email",newEmail);
         mEditor.apply();
     }
