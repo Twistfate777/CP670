@@ -19,9 +19,9 @@ public class ChatDatabaseHelper extends SQLiteOpenHelper {
 
     // SQL statement to create a new table
     private static final String TABLE_CREATE =
-            "CREATE TABLE " + TABLE_ITEMS + " (" +
+            "CREATE TABLE " + TABLE_ITEMS + " ( " +
                     COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    COLUMN_ITEM + " TEXT" + ")";
+                    COLUMN_ITEM + " TEXT)";
 
     // Constructor
     public ChatDatabaseHelper(Context ctx) {
