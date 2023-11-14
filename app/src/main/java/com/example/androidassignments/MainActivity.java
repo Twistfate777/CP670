@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,10 +32,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Click the button and jump to List_Items
-    public void onJumpClicked(View v)
-    {
+    public void onJumpClicked(View v) {
         Log.i(TAG,"onJumpClicked");
         Intent intent = new Intent(MainActivity.this,ListItemsActivity.class);
+        startActivityForResult(intent,REQUEST_CODE);
+    }
+
+    public void onWeatherClicked(View v) {
+        Log.i(TAG, "User clicked Weather");
+        Intent intent = new Intent(MainActivity.this, WeatherForecast.class);
         startActivityForResult(intent,REQUEST_CODE);
     }
 
